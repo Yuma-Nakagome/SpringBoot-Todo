@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoList</title>
+</head>
+
+<body>
+
+    <h1>一覧画面</h1>
+    <a href="/create">新規追加</a>
+    <table border="2" cellpadding="6" cellspacing="5">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>タイトル</th>
+                <th>説明</th>
+                <th>ステータス</th>
+                <th>詳細</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="todo : ${todos}">
+                <td th:text="${todo.id}">ID</td>
+                <td th:text="${todo.title}">タイトル</td>
+                <td th:text="${todo.description}">Description</td>
+                <td th:text="${todo.status} ?'完了':'未完了'">Status</td>
+                <td><a th:href="@{/todo/edit/{id}(id=${todo.id})}">編集</a></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+</body>
+
+</html>

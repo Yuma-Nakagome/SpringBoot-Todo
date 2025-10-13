@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo新規追加</title>
+</head>
+
+<body>
+    <h1>Todoリストの編集</h1>
+    <form th:action="@{/todo/edit/{id}(id=${todoForm.id})}" th:object="${todoForm}" method="post">
+        <div>
+            <label for="title">タイトル</label>
+            <input type="text" th:field="*{title}">
+            <!-- th:field="*{title}"があるとidとnameを自動生成するので機能に問題なければid="title"はなくても良い -->
+            <span style="color: red;" th:errors="*{title}"></span>
+        </div>
+        <div>
+            <label for="description">説明</label>
+            <textarea th:field="*{description}"></textarea>
+        </div>
+        <div>
+            <label for="status">ステータス</label>
+            <select th:field="*{status}">
+                <option value="true">完了</option>
+                <option value="false">未完了</option>
+            </select>
+            <span style="color: red;" th:errors="*{status}"></span>
+        </div>
+        <div>
+            <button type="submit">更新</button>
+        </div>
+    </form>
+    <form th:action="@{/todo/delete/{id}(id=${todoForm.id})}" method="post" style="display:inline;">
+        <button type="submit" onclick="return confirm('本当に削除しますか？');">削除</button>
+    </form>
+
+    <a href="/">一覧画面</a>
+</body>
+
+</html>

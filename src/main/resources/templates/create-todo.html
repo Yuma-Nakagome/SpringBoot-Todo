@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todoの編集</title>
+</head>
+
+<body>
+    <h1>新しいTodoリストを作成</h1>
+    <form th:action="@{/addTodo}" th:object="${todoForm}" method="post">
+        <div>
+            <label for="title">タイトル</label>
+            <input type="text" th:field="*{title}">
+            <!-- th:field="*{title}"があるとidとnameを自動生成するので機能に問題なければid="title"はなくても良い -->
+            <span style="color: red;" th:errors="*{title}"></span>
+        </div>
+        <div>
+            <label for="description">説明</label>
+            <textarea th:field="*{description}"></textarea>
+        </div>
+        <div>
+            <label for="status">ステータス</label>
+            <select th:field="*{status}">
+                <option value="true">完了</option>
+                <option value="false">未完了</option>
+            </select>
+            <span style="color: red;" th:errors="*{status}"></span>
+        </div>
+        <div>
+            <button type="submit">新規作成</button>
+        </div>
+    </form>
+    <a href="/">一覧画面</a>
+</body>
+
+</html>
