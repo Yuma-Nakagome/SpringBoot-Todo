@@ -1,18 +1,14 @@
-# --- ステージ 1: ビルドステージ ---
-# Java 17 JDKを持つイメージをベースにする
-FROM eclipse-temurin:17-jdk-alpine AS builder
+# ビルドステージ（Mavenがインストールされているイメージを使用）
+FROM maven:3.9.5-eclipse-temurin-17 AS builder  # ★この行を変更★
 WORKDIR /app
 COPY . .
 # Mavenを実行して、アプリケーションをJARファイルにパッケージ化し、名前を app.jar に変更する
 RUN mvn clean package && mv target/*.jar target/app.jar
 
-# --- ステージ 2: 実行ステージ ---
-# 軽量なJREイメージをベースにする
+# 実行ステージ（軽量なJRE環境でJARを実行する）
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-# ビルドステージで作成したJARファイル（app.jar）をコピー
+# ビルドステージからJARファイルをコピー
 COPY --from=builder /app/target/app.jar /app/app.jar
-# アプリケーションが待ち受けるポートを公開（Spring Bootのデフォルトは8080）
-EXPOSE 8080
-# アプリケーションの起動コマンド
+# アプリケーションの起動
 ENTRYPOINT ["java", "-jar", "app.jar"]
