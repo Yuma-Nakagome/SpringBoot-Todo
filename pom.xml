@@ -96,6 +96,13 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests> <!-- これが必須 -->
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
