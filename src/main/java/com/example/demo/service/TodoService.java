@@ -19,7 +19,7 @@ public class TodoService {
         List<Map<String, Object>> todos = todoRepository.findAll();
 
         if (todos == null) {
-            // null の場合は、空のリストを返
+            // null の場合は、空のリストを返す
             return new ArrayList<>();
         }
 
